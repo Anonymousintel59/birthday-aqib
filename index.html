@@ -58,10 +58,11 @@ display:none;
 position:fixed;
 top:50%;left:50%;
 transform:translate(-50%,-50%);
-width:90%;      /* Actual width */
-height:auto;      /* Actual height */
-max-width:720px;      /* fit smaller screens */
-max-height:90%;
+width:90%;
+  max-width:720px;
+  height:auto;      /* remove this */
+  aspect-ratio:16/9;  /* maintain width:height ratio */
+  max-height:90vh;
 background:url('birthdayPic.jpg') center/cover no-repeat;
 border-radius:30px;
 z-index:9998;
@@ -177,6 +178,70 @@ background:#ddd;
 margin:auto;
 animation:ropeSwing 2s ease-in-out infinite alternate;
 }
+/* 🎉 Firework Emoji Base */
+.fireworkEmoji{
+  position:relative;
+  display:inline-block;
+  font-size:3.2rem;
+  margin:0 14px;
+  animation:fireworkPop 2.4s infinite;
+  --c: hsl(0,100%,60%);
+  filter:
+    drop-shadow(0 0 8px var(--c))
+    drop-shadow(0 0 18px var(--c))
+    drop-shadow(0 0 32px var(--c));
+}
+
+/* delay for right side */
+.fireworkEmoji.right{
+  animation-delay:1.2s;
+}
+
+/* Pop animation */
+@keyframes fireworkPop{
+  0%{
+    transform:scale(0);
+    opacity:0;
+  }
+  30%{
+    transform:scale(1.4) rotate(20deg);
+    opacity:1;
+  }
+  60%{
+    transform:scale(1) rotate(-20deg);
+  }
+  100%{
+    transform:scale(0);
+    opacity:0;
+  }
+}
+
+/* ✨ Glitter particles */
+.fireworkEmoji::after{
+  content:"✨ ✨ ✨";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:1.1rem;
+  opacity:0;
+  animation:glitter 2.4s infinite;
+}
+
+.fireworkEmoji.right::after{
+  animation-delay:1.2s;
+}
+
+@keyframes glitter{
+  30%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1.5);
+  }
+  60%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(2.2);
+  }
+}
 
 /* ============ SPRINKLES ============ */
 .sprinkle{
@@ -252,7 +317,12 @@ to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}
 <div id="main">
 <div class="frame">
 
-<div class="title">𝓗𝓐𝓟𝓟𝓨 𝓑𝓘𝓡𝓣𝓗𝓓𝓐𝓨<br>𝓐𝓠𝓘𝓑 𝓘𝓕𝓣𝓘𝓚𝓗𝓐𝓡</div>
+<div class="title fireworkTitle">
+  <span class="fireworkEmoji left">🎉</span>
+  𝓗𝓐𝓟𝓟𝓨 𝓑𝓘𝓡𝓣𝓗𝓓𝓐𝓨<br>
+   𝓐𝓠𝓘𝓑 𝓘𝓕𝓣𝓘𝓚𝓗𝓐𝓡
+  <span class="fireworkEmoji right">🎉</span>
+</div>
 
 <div class="urduPoetryTitle">شاعری آپ کے لیے :-</div>
 <div class="urduPoetry">
@@ -282,6 +352,7 @@ you deserve 🎊 and even more — a rare soul 💎, a true leader 👑, and a b
 <div class="photoCard"><video src="vid1.mp4" controls></video><p>ｍ𝐚Ɨ𝐍 Ⓚ𝐚𝔂𝐚 𝕃𝐚𝓭ᒪ𝔂      ｍ𝑒𝐚ØØØØØØØ</p></div>
 <div class="photoCard"><video src="vid2.mp4" controls></video><p>✌𝓤𝓼𝓽𝓪𝓭 𝓑𝓱𝓸𝓵𝓪 𝓡𝓮𝓬𝓸𝓻𝓭✌</p></div>
 <div class="photoCard"><video src="vid3.mp4" controls></video><p>Ḅṛöẗḧëṛ ḟṛöṁ Äṅöẗḧëṛ Ṁöẗḧëṛ ♾️</p></div>
+<div class="photoCard"><video src="vid4.mp4" controls></video><p>✨ Memories ✨</p></div>
 </div>
 
 <h3>🎁 Click the Boxes</h3>
@@ -383,7 +454,18 @@ setInterval(()=>fireText(fwL),2200);
 setInterval(()=>fireText(fwR),2600);
 }
 </script>
+<script>
+/* 🌈 Random color fireworks */
+const fireworks = document.querySelectorAll('.fireworkEmoji');
+
+setInterval(() => {
+  fireworks.forEach(fw => {
+    const hue = Math.floor(Math.random() * 360);
+    fw.style.setProperty('--c', `hsl(${hue},100%,60%)`);
+  });
+}, 700);
+
+}
 
 </body>
-
 </html>
