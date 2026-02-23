@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Aqib 🎉</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+body{
+background:radial-gradient(circle at top,#7b2cbf,#240046);
+color:#fff;
+overflow-x:hidden;
+text-align:center;
+}
+
+/* 🎂 background */
+body::before{
+content:"🎂";
+position:fixed;
+font-size:26rem;
+opacity:.07;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+pointer-events:none;
+}
+
+/* ================= PUZZLE ================= */
+#puzzleScreen{
+position:fixed;
+inset:0;
+background:#12002b;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+#introText{color:#e0aaff;font-size:1.4rem}
+.grid{display:grid;grid-template-columns:repeat(3,80px);gap:8px;margin-top:20px}
+.tile{
+width:80px;height:80px;
+background:linear-gradient(135deg,#c77dff,#ffd166);
+border-radius:14px;
+font-size:1.6rem;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+color:#000;
+}
+.empty{background:#333}
+
+/* ============ PUZZLE IMAGE ============ */
+#fullScreenImage{
+display:none;
+position:fixed;
+top:50%;left:50%;
+transform:translate(-50%,-50%);
+width:1376px;      /* Actual width */
+height:768px;      /* Actual height */
+max-width:90%;      /* fit smaller screens */
+max-height:90%;
+background:url('birthdayPic.jpg') center/cover no-repeat;
+border-radius:30px;
+z-index:9998;
+}
+
+/* ================= MAIN ================= */
+#main{display:none;padding:25px}
+.frame{
+max-width:1100px;
+margin:auto;
+padding:30px;
+border-radius:40px;
+background:rgba(60,0,90,.45);
+border:5px solid #c77dff;
+}
+
+.title{
+font-size:3rem;
+font-family:cursive;
+color:#ffd6ff;
+text-shadow:0 0 20px rgba(199,125,255,.8);
+}
+
+.urduPoetryTitle{margin-top:15px;font-size:1.3rem;color:#ffd6ff}
+.urduPoetry{
+margin-top:10px;
+font-family:"Noto Nastaliq Urdu",serif;
+font-size:1.4rem;
+line-height:2.3;
+color:#f3d9fa;
+}
+
+.musicBtn{
+margin:20px 0;
+padding:10px 22px;
+border:none;
+border-radius:25px;
+background:#9d4edd;
+color:#fff;
+cursor:pointer;
+}
+
+.poetry{
+max-width:900px;
+margin:30px auto;
+font-size:1.15rem;
+line-height:2;
+color:#f3d9fa;
+}
+
+.specialImg{
+width:85%;
+max-width:700px;
+margin:30px auto;
+border-radius:20px;
+box-shadow:0 0 25px rgba(199,125,255,.6);
+}
+
+.gallery{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin:40px 0;
+}
+.photoCard{
+width:260px;
+background:rgba(255,255,255,.08);
+padding:15px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(199,125,255,.4);
+}
+.photoCard video{width:100%;border-radius:15px}
+.photoCard p{margin-top:10px;color:#ffd6ff}
+
+.boxes{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
+margin-top:30px;
+}
+.box{
+width:130px;height:130px;
+background:linear-gradient(135deg,#9d4edd,#ffd166);
+border-radius:22px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#000;
+font-weight:600;
+cursor:pointer;
+}
+.box span{display:none}
+.box.open span{display:block}
+
+/* ============ BALLOONS ============ */
+.balloonWrap{
+position:fixed;
+bottom:-180px;
+animation:floatUp 5s linear infinite;
+z-index:10000;
+display:none;
+}
+.balloon{
+width:44px;height:60px;
+background:radial-gradient(circle at 30% 30%,#fff,red);
+border-radius:50% 50% 45% 45%;
+}
+.rope{
+width:2px;height:75px;
+background:#ddd;
+margin:auto;
+animation:ropeSwing 2s ease-in-out infinite alternate;
+}
+
+/* ============ SPRINKLES ============ */
+.sprinkle{
+position:fixed;
+top:-10px;
+width:6px;height:6px;
+border-radius:50%;
+background:#ffd6ff;
+animation:sprinkleFall 18s linear infinite;
+opacity:.7;
+}
+
+/* ============ FIREWORK AQIB ============ */
+.firework{
+position:fixed;
+bottom:0;
+font-size:2.6rem;
+font-weight:bold;
+color:white;
+z-index:9990;
+pointer-events:none;
+}
+.leftFW{left:5%}
+.rightFW{right:5%}
+
+.letter{
+position:absolute;
+animation:letterBurst 1.2s ease-out forwards;
+color:hsl(var(--h),100%,60%);
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+@keyframes floatUp{to{transform:translateY(-130vh)}}
+@keyframes ropeSwing{0%{transform:rotate(-4deg)}100%{transform:rotate(4deg)}}
+@keyframes sprinkleFall{to{transform:translateY(120vh);opacity:0}}
+@keyframes letterBurst{
+to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PUZZLE -->
+<div id="puzzleScreen">
+<h2 id="introText"></h2>
+<p>Move one block to continue 🎁</p>
+<div class="grid" id="grid"></div>
+</div>
+
+<div id="fullScreenImage"></div>
+
+<!-- BALLOONS -->
+<div class="balloonWrap" style="left:10%"><div class="balloon"></div><div class="rope"></div></div>
+<div class="balloonWrap" style="left:30%"><div class="balloon"></div><div class="rope"></div></div>
+<div class="balloonWrap" style="left:50%"><div class="balloon"></div><div class="rope"></div></div>
+<div class="balloonWrap" style="left:70%"><div class="balloon"></div><div class="rope"></div></div>
+<div class="balloonWrap" style="left:85%"><div class="balloon"></div><div class="rope"></div></div>
+
+<!-- FIREWORKS -->
+<div class="firework leftFW" id="fwL"></div>
+<div class="firework rightFW" id="fwR"></div>
+
+<!-- MAIN -->
+<div id="main">
+<div class="frame">
+
+<div class="title">𝓗𝓐𝓟𝓟𝓨 𝓑𝓘𝓡𝓣𝓗𝓓𝓐𝓨<br>𝓐𝓠𝓘𝓑 𝓘𝓕𝓣𝓘𝓚𝓗𝓐𝓡</div>
+
+<div class="urduPoetryTitle">شاعری آپ کے لیے :-</div>
+<div class="urduPoetry">
+یہ روشن چراغ جس کی آمد نے سارا جہاں منور کر دیا<br>
+یوم پیدائش کی پر خلوص مبارکباد جہاں آراء
+</div>
+
+<button class="musicBtn" onclick="toggleMusic()">🎵 Music On / Off</button>
+
+<div class="poetry">
+🎉 Happy Birthday to the one who holds every important place in my life — a brother by heart ❤️, a <br>
+best friend by choice 🤝, a trusted business partner 💼, and a mentor I deeply respect — Aqib Iftikhar.<br>
+You don’t just support me, you inspire me 🌟; you don’t just guide me, you shape my mindset and my <br>
+future 🧠💡. Working with you is more than business — it’s growth 📈, learning 📚, and motivation 💪.<br>
+I am truly grateful for your presence in my life 🙌. May Allah bless you with health 🏃‍♂️💚, long life 🕊️,<br>
+wisdom 📖, peace ☮️, and ever-growing success 🏆. May He also bless your parents 👨‍👩‍👦 with happiness😊,<br>
+good health 💖, long life ⏳, and accept all their prayers for you 🤲.This year may bring you every joy <br>
+you deserve 🎊 and even more — a rare soul 💎, a true leader 👑, and a blessing to know ✨.<br>
+اللہ آپ کو ہمیشہ عزت، صحت اور کامیابی عطا فرمائے۔
+</div>
+
+<img src="specialPic.jpg" class="specialImg">
+
+<h3>꧁༒𝖇𝖎𝖗𝖙𝖍𝖉𝖆𝖞 𝕭𝖔𝖞 𝕸𝖗.𝕬𝖖𝖎𝖇༒꧂
+</h3>
+<div class="gallery">
+<div class="photoCard"><video src="vid1.mp4" controls></video><p>ｍ𝐚Ɨ𝐍 Ⓚ𝐚𝔂𝐚 𝕃𝐚𝓭ᒪ𝔂      ｍ𝑒𝐚ØØØØØØØ</p></div>
+<div class="photoCard"><video src="vid2.mp4" controls></video><p>✌𝓤𝓼𝓽𝓪𝓭 𝓑𝓱𝓸𝓵𝓪 𝓡𝓮𝓬𝓸𝓻𝓭✌</p></div>
+<div class="photoCard"><video src="vid3.mp4" controls></video><p>Ḅṛöẗḧëṛ ḟṛöṁ Äṅöẗḧëṛ Ṁöẗḧëṛ ♾️</p></div>
+</div>
+
+<h3>🎁 Click the Boxes</h3>
+<div class="boxes">
+<div class="box" onclick="this.classList.add('open')"><span>Brother 🤍</span></div>
+<div class="box" onclick="this.classList.add('open')"><span>Leader 👑</span></div>
+<div class="box" onclick="this.classList.add('open')"><span>Partner 🤝</span></div>
+<div class="box" onclick="this.classList.add('open')"><span>Family ♾️</span></div>
+<div class="box" onclick="this.classList.add('open')"><span>Forever 🌟</span></div>
+</div>
+
+</div>
+</div>
+
+<script>
+const introMsg="My Little Effort For You / Mr. Aqib";
+let ti=0;
+(function type(){
+if(ti<introMsg.length){
+introText.innerHTML+=introMsg.charAt(ti++);
+setTimeout(type,80);
+}})();
+
+/* puzzle */
+let nums=[1,2,3,4,5,6,7,null,8];
+function draw(){
+grid.innerHTML="";
+nums.forEach((n,i)=>{
+const d=document.createElement("div");
+d.className="tile"+(n===null?" empty":"");
+d.innerText=n||"";
+d.onclick=()=>move(i);
+grid.appendChild(d);
+});
+}
+function move(i){
+const e=nums.indexOf(null);
+if([e-1,e+1,e-3,e+3].includes(i)){
+[nums[i],nums[e]]=[nums[e],nums[i]];
+draw();check();
+}}
+function check(){
+for(let i=0;i<8;i++) if(nums[i]!==i+1) return;
+unlock();
+}
+draw();
+
+/* unlock */
+function unlock(){
+puzzleScreen.style.display="none";
+fullScreenImage.style.display="block";
+
+/* balloons show */
+document.querySelectorAll('.balloonWrap').forEach(b=>b.style.display="block");
+startFireworks();
+
+setTimeout(()=>{
+fullScreenImage.style.display="none";
+document.querySelectorAll('.balloonWrap').forEach(b=>b.style.display="none");
+main.style.display="block";
+bgMusic.play();
+startSprinkles();
+},4000); // increased delay to 4 seconds
+}
+
+function toggleMusic(){
+bgMusic.paused?bgMusic.play():bgMusic.pause();
+}
+
+/* sprinkles */
+function startSprinkles(){
+for(let i=0;i<30;i++){
+const s=document.createElement("div");
+s.className="sprinkle";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDelay=Math.random()*10+"s";
+document.body.appendChild(s);
+}
+}
+
+/* AQIB fireworks */
+function fireText(el){
+const text="AQIB";
+el.innerHTML="";
+[...text].forEach((ch,i)=>{
+const l=document.createElement("span");
+l.className="letter";
+l.textContent=ch;
+l.style.left=i*26+"px";
+l.style.setProperty("--x",(Math.random()*240-120)+"px");
+l.style.setProperty("--y",(Math.random()*-260)+"px");
+l.style.setProperty("--h",Math.random()*360);
+el.appendChild(l);
+});
+}
+
+function startFireworks(){
+setInterval(()=>fireText(fwL),2200);
+setInterval(()=>fireText(fwR),2600);
+}
+</script>
+
+</body>
+</html>
